@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
-    'SECRET_KEY', default='django-insecure-+zygo$c25bfwdnfmk_#-3gd-jxkmrcp=z0z*i2p5=7maobrqlq')
+    'SECRET_KEY', default='your-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
@@ -63,7 +63,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOW_ALL_HEADERS = True
+
 CORS_ALLOW_METHODS = [
     "GET",
     "POST",
@@ -72,6 +74,9 @@ CORS_ALLOW_METHODS = [
     "DELETE",
     "OPTIONS",
 ]
+
+CORS_ALLOWED_ORIGINS = ["https://secretaria-salud-app.vercel.app/"]
+
 ROOT_URLCONF = 'data_analisis.urls'
 
 TEMPLATES = [
