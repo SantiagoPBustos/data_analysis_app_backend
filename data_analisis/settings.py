@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS: True
 
 CORS_ALLOW_ALL_HEADERS = True
 
@@ -74,7 +74,11 @@ CORS_ALLOW_METHODS = [
     "OPTIONS",
 ]
 
-CORS_ALLOWED_ORIGINS = ["https://secretaria-salud-app.vercel.app/"]
+CORS_ALLOWED_ORIGINS = ["https://secretaria-salud-app.vercel.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://secretaria-salud-app.vercel.app",
+]
+
 
 ROOT_URLCONF = 'data_analisis.urls'
 
