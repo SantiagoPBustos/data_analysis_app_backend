@@ -42,13 +42,13 @@ class Data(APIView):
 class DataInstitution(APIView):
     def post(self, request):
         # Accede al JSON recibido en la solicitud POST
-        datas = request.data
-        municipio = request.municipio
+        myDatas = request.datas.data
+        myMunicipio = request.municipio
         # Crea una respuesta JSON
         response = JsonResponse(
             {
                 "status": 200,
-                "data": obtener_registros_por_municipio(datas, municipio),
+                "data": obtener_registros_por_municipio(myDatas, myMunicipio),
             }
         )
 
