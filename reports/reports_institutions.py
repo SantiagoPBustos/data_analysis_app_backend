@@ -172,7 +172,6 @@ def calculateAverageBySanitaryConcept(data):
 
 def obtener_registros_por_municipio(data, municipio):
     try:
-
         # Filtrar los registros por el municipio especificado
         registros_municipio = [
             registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
@@ -180,8 +179,29 @@ def obtener_registros_por_municipio(data, municipio):
         # Ordenar los registros por % DE CUMPLIMIENTO de menor a mayor
         registros_ordenados = sorted(
             registros_municipio, key=lambda x: x["% DE CUMPLIMIENTO"])
+        result = registros_ordenados[:10]
+        return result
 
-        return registros_ordenados
+    except Exception as error:
+        return str(error)
+
+
+def obtener_razon_cumplimiento_formato_lista(data, municipio):
+    try:
+        # Filtrar los registros por el municipio especificado
+        registros_municipio = [
+            registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
+        try:
+
+            # Obtener la "RAZÓN SOCIAL" y el "% DE CUMPLIMIENTO" como una lista de listas
+            datos_razon_cumplimiento = [
+                [f"{registro['RAZÓN SOCIAL']} - {registro['SEDE']}", float(registro["% DE CUMPLIMIENTO"])] for registro in registros_municipio]
+        except ValueError:
+            print(ValueError)
+        # Ordenar la lista por % DE CUMPLIMIENTO de menor a mayor
+        datos_ordenados = sorted(datos_razon_cumplimiento, key=lambda x: x[1])
+        result = datos_ordenados[:12]
+        return result
 
     except Exception as error:
         return str(error)
