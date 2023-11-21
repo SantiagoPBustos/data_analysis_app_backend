@@ -43,7 +43,7 @@ class DataInstitution(APIView):
     def post(self, request):
         # Accede al JSON recibido en la solicitud POST
         datas = request.data
-        municipio = datas.get("municipio", None)
+        municipio = request.municipio
         # Crea una respuesta JSON
         response = JsonResponse(
             {
