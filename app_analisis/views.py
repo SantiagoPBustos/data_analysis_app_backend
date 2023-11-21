@@ -48,7 +48,7 @@ class DataInstitution(APIView):
         response = JsonResponse(
             {
                 "status": 200,
-                "data": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 70),
+                "data": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 20),
             }
         )
 
