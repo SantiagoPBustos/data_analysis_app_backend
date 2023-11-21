@@ -168,3 +168,4 @@ def calculateAverageBySanitaryConcept(data):
     ]
 
     return porcentajes
+
