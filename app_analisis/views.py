@@ -37,3 +37,22 @@ class Data(APIView):
         response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
 
         return response
+
+
+class DataInstitution(APIView):
+    def post(self, request):
+        # Accede al JSON recibido en la solicitud POST
+        data = request.data
+
+        # Crea una respuesta JSON
+        response = JsonResponse(
+            {
+                "status": 200,
+                "location_conditions": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 70),
+            }
+        )
+
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+
+        return response
