@@ -1,6 +1,6 @@
 # Create your views here.
 from django.http import JsonResponse
-from reports.reports_institutions import countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept
+from reports.reports_institutions import countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, obtener_registros_por_municipio
 from utils.Constants import IE, IEES, HI, CDI, CER, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAMIENTO, GESTION_RIESGO
 
 from rest_framework.views import APIView
@@ -42,13 +42,13 @@ class Data(APIView):
 class DataInstitution(APIView):
     def post(self, request):
         # Accede al JSON recibido en la solicitud POST
-        data = request.data
-        print(data)
+        datas = request.data
+        municipio = datas.get("municipio", None)
         # Crea una respuesta JSON
         response = JsonResponse(
             {
                 "status": 200,
-                "data": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 20),
+                "data": obtener_registros_por_municipio(datas, municipio),
             }
         )
 

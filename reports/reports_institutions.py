@@ -169,3 +169,19 @@ def calculateAverageBySanitaryConcept(data):
 
     return porcentajes
 
+
+def obtener_registros_por_municipio(data, municipio):
+    try:
+
+        # Filtrar los registros por el municipio especificado
+        registros_municipio = [
+            registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
+
+        # Ordenar los registros por % DE CUMPLIMIENTO de menor a mayor
+        registros_ordenados = sorted(
+            registros_municipio, key=lambda x: x["% DE CUMPLIMIENTO"])
+
+        return registros_ordenados
+
+    except Exception as error:
+        return str(error)
