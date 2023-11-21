@@ -75,7 +75,7 @@ CORS_ALLOW_METHODS = [
 
 CORS_ALLOWED_ORIGINS = ["https://secretaria-salud-app.vercel.app",
                         "http://secretaria-salud-app.vercel.app",
-                        "https://secretaria-salud-app.vercel.app/"
+                        "https://secretaria-salud-app.vercel.app/",
                         "http://secretaria-salud-app.vercel.app/",
                         "http://localhost:5173",
                         "https://localhost:5173"]
@@ -83,7 +83,7 @@ CORS_ALLOWED_ORIGINS = ["https://secretaria-salud-app.vercel.app",
 CSRF_TRUSTED_ORIGINS = [
     "https://secretaria-salud-app.vercel.app",
     "http://secretaria-salud-app.vercel.app",
-    "https://secretaria-salud-app.vercel.app/"
+    "https://secretaria-salud-app.vercel.app/",
     "http://secretaria-salud-app.vercel.app/",
     "http://localhost:5173",
     "https://localhost:5173"
