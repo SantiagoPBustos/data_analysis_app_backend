@@ -58,7 +58,7 @@ def worstAveragesByMunicipality(data):
             result.append([municipality, average])
 
         sorted_result = sorted(result, key=lambda x: x[1])
-        limited_result = sorted_result[:12]
+        limited_result = sorted_result[:20]
         return limited_result
 
     except Exception as e:
