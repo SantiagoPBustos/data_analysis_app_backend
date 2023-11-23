@@ -2,6 +2,8 @@ from collections import defaultdict
 from utils.utilities import groupSimilarConcepts, totalValue
 
 # Informe general del número total de instituciones cargadas
+
+
 def countTotalInstitutions(data):
     try:
         elements = data.get("data", [])
@@ -18,6 +20,8 @@ def countTotalInstitutions(data):
         return str(e)
 
 # Informe general del número total de instituciones cargadas filtrado por tipo
+
+
 def countInstitutionsByTypePlace(data, type):
     try:
         elements = data.get("data", [])
@@ -65,6 +69,8 @@ def worstAveragesByMunicipality(data):
         return str(e)
 
 # Calcula promedio de los peores porcentajes de cumplimiento agrupados por tipo de institucion
+
+
 def worstAveragesByTypeInstitution(data):
     try:
         elements = data.get("data", [])
@@ -94,6 +100,8 @@ def worstAveragesByTypeInstitution(data):
         return str(e)
 
 # Calcula promedio de los peores porcentajes de cumplimiento agrupados por componente segun municipio
+
+
 def worstAveragesPerComponentByMunicipality(data, start, title_component, limit):
     try:
         records = data.get("data", [])
@@ -121,12 +129,18 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component, limit)
 
         sorted_result = sorted(result, key=lambda x: x[1])
         result = sorted_result[:limit]
-        return result
+        aux = areAllZero(result)
+        if aux == False:
+            return result
+        elif aux == None:
+            return None
 
     except Exception as error:
         return str(error)
 
 # Calcular promedio agrupado por porcentaje de cumplimiento de instituciones
+
+
 def calculateAverageBySanitaryConcept(data):
     registros = data["data"]
     concepts = [registro["CONCEPTO"] for registro in registros]
@@ -177,3 +191,7 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio):
 
     except Exception as error:
         return str(error)
+
+
+def areAllZero(array):
+    return None if all(value == 0 for _, value in array) else False
