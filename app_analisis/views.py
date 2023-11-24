@@ -1,6 +1,6 @@
 # Create your views here.
 from django.http import JsonResponse
-from reports.reports_institutions import deleteDuplicateRecords, countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, obtener_registros_por_municipio, obtener_razon_cumplimiento_formato_lista
+from reports.reports_institutions import countTotalRural, countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, obtener_registros_por_municipio, obtener_razon_cumplimiento_formato_lista
 from utils.Constants import IE, IEES, HI, CDI, CER, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAMIENTO, GESTION_RIESGO
 
 from rest_framework.views import APIView
@@ -20,7 +20,7 @@ class Data(APIView):
                 "total_IEES": countInstitutionsByTypePlace(data, IEES),
                 "total_HI": countInstitutionsByTypePlace(data, HI),
                 "total_CDI": countInstitutionsByTypePlace(data, CDI),
-                "total_CER": countInstitutionsByTypePlace(data, CER),
+                "total_CER": countTotalRural(data),
                 "worst_municipalities": worstAveragesByMunicipality(data),
                 "type_institutions": worstAveragesByTypeInstitution(data),
                 "location_conditions": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 20),
@@ -28,8 +28,7 @@ class Data(APIView):
                 "sanitary_conditions": worstAveragesPerComponentByMunicipality(data, "4.0", SANITARIAS, 20),
                 "conditions_sanitation": worstAveragesPerComponentByMunicipality(data, "4.1", SANEAMIENTO, 20),
                 "risk_management": worstAveragesPerComponentByMunicipality(data, "5.", GESTION_RIESGO, 35),
-                "type_concept": calculateAverageBySanitaryConcept(data),
-                "xdd": deleteDuplicateRecords(data)
+                "type_concept": calculateAverageBySanitaryConcept(data)
             }
         )
 

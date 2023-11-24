@@ -8,7 +8,8 @@ def deleteDuplicateRecords(data):
 
     for registro in records:
         try:
-            inscripcion = str(registro.get("INSCRIPCIÓN CÓDIGO DANE O NIT", ""))
+            inscripcion = str(registro.get(
+                "INSCRIPCIÓN CÓDIGO DANE O NIT", ""))
 
             if inscripcion in dictionary_records:
                 dictionary_records[inscripcion] = registro
@@ -21,6 +22,17 @@ def deleteDuplicateRecords(data):
     records_without_duplicates = list(dictionary_records.values())
     result = {"data": records_without_duplicates}
     return result
+
+def countTotalRural(data):
+    data = deleteDuplicateRecords(data)
+    records = data["data"]
+    countRural = 0
+
+    for registro in records:
+        if registro.get("UBICACIÓN", "").upper() == "VEREDA":
+            countRural += 1
+
+    return countRural
 
 # Informe general del número total de instituciones cargadas
 def countTotalInstitutions(data):
@@ -220,4 +232,3 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio):
 
 def areAllZero(array):
     return None if all(value == 0 for _, value in array) else False
-
