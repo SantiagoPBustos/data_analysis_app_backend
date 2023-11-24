@@ -23,6 +23,7 @@ def deleteDuplicateRecords(data):
     result = {"data": records_without_duplicates}
     return result
 
+
 def countTotalRural(data):
     data = deleteDuplicateRecords(data)
     records = data["data"]
@@ -35,6 +36,8 @@ def countTotalRural(data):
     return countRural
 
 # Informe general del número total de instituciones cargadas
+
+
 def countTotalInstitutions(data):
     data = deleteDuplicateRecords(data)
     try:
@@ -52,6 +55,8 @@ def countTotalInstitutions(data):
         return str(e)
 
 # Informe general del número total de instituciones cargadas filtrado por tipo
+
+
 def countInstitutionsByTypePlace(data, type):
     data = deleteDuplicateRecords(data)
     try:
@@ -176,20 +181,22 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component, limit)
 
 
 def calculateAverageBySanitaryConcept(data):
-    data = deleteDuplicateRecords(data)
-    registros = data["data"]
-    concepts = [registro["CONCEPTO"] for registro in registros]
-    grouped_concepts = groupSimilarConcepts(concepts)
-    total_registros = len(registros)
-    porcentajes = [
-        {
-            "name": conceptos[0],
-            "y": (len(conceptos) / total_registros) * 100,
-        }
-        for conceptos in grouped_concepts.values()
-    ]
-    return porcentajes
-
+    try:
+        data = deleteDuplicateRecords(data)
+        registros = data["data"]
+        concepts = [registro["CONCEPTO"] for registro in registros]
+        grouped_concepts = groupSimilarConcepts(concepts)
+        total_registros = len(registros)
+        porcentajes = [
+            {
+                "name": conceptos[0],
+                "y": (len(conceptos) / total_registros) * 100,
+            }
+            for conceptos in grouped_concepts.values()
+        ]
+        return porcentajes
+    except Exception as error:
+        return str(error)
 
 def obtener_registros_por_municipio(data, municipio):
     data = deleteDuplicateRecords(data)
@@ -198,9 +205,21 @@ def obtener_registros_por_municipio(data, municipio):
         registros_municipio = [
             registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
 
+        # Convertir "% DE CUMPLIMIENTO" a números antes de ordenar
+        registros_municipio = [
+            {"% DE CUMPLIMIENTO": int(
+                registro["% DE CUMPLIMIENTO"]), **registro}
+            for registro in registros_municipio
+        ]
+
         # Ordenar los registros por % DE CUMPLIMIENTO de menor a mayor
         registros_ordenados = sorted(
             registros_municipio, key=lambda x: x["% DE CUMPLIMIENTO"])
+
+        # Eliminar la columna temporal "% DE CUMPLIMIENTO" creada para la comparación
+        for registro in registros_ordenados:
+            del registro["% DE CUMPLIMIENTO"]
+
         result = registros_ordenados[:10]
         return result
 
@@ -223,7 +242,7 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio):
             print(ValueError)
         # Ordenar la lista por % DE CUMPLIMIENTO de menor a mayor
         datos_ordenados = sorted(datos_razon_cumplimiento, key=lambda x: x[1])
-        result = datos_ordenados[:12]
+        result = datos_ordenados[:50]
         return result
 
     except Exception as error:
