@@ -1,10 +1,9 @@
 # Create your views here.
 from django.http import JsonResponse
-from reports.reports_institutions import countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, obtener_registros_por_municipio, obtener_razon_cumplimiento_formato_lista
+from reports.reports_institutions import deleteDuplicateRecords, countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, obtener_registros_por_municipio, obtener_razon_cumplimiento_formato_lista
 from utils.Constants import IE, IEES, HI, CDI, CER, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAMIENTO, GESTION_RIESGO
 
 from rest_framework.views import APIView
-from rest_framework.response import Response
 
 
 class Data(APIView):
@@ -30,6 +29,7 @@ class Data(APIView):
                 "conditions_sanitation": worstAveragesPerComponentByMunicipality(data, "4.1", SANEAMIENTO, 20),
                 "risk_management": worstAveragesPerComponentByMunicipality(data, "5.", GESTION_RIESGO, 35),
                 "type_concept": calculateAverageBySanitaryConcept(data),
+                "xdd": deleteDuplicateRecords(data)
             }
         )
 

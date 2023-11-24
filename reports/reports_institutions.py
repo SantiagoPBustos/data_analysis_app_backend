@@ -1,10 +1,30 @@
 from collections import defaultdict
 from utils.utilities import groupSimilarConcepts, totalValue
 
+def deleteDuplicateRecords(data):
+    records = data["data"]
+    dictionary_records = {}
+    duplicate_records = []
+
+    for registro in records:
+        try:
+            inscripcion = str(registro.get("INSCRIPCIÓN CÓDIGO DANE O NIT", ""))
+
+            if inscripcion in dictionary_records:
+                dictionary_records[inscripcion] = registro
+                duplicate_records.append(registro)
+            else:
+                dictionary_records[inscripcion] = registro
+        except ValueError:
+            continue
+
+    records_without_duplicates = list(dictionary_records.values())
+    result = {"data": records_without_duplicates}
+    return result
+
 # Informe general del número total de instituciones cargadas
-
-
 def countTotalInstitutions(data):
+    data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
         uniqueID = set()
@@ -20,9 +40,8 @@ def countTotalInstitutions(data):
         return str(e)
 
 # Informe general del número total de instituciones cargadas filtrado por tipo
-
-
 def countInstitutionsByTypePlace(data, type):
+    data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
         count = 0
@@ -40,6 +59,7 @@ def countInstitutionsByTypePlace(data, type):
 
 # Calcula promedio de los peores porcentajes de cumplimiento agrupados por municipio
 def worstAveragesByMunicipality(data):
+    data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
         averages_by_municipality = defaultdict(list)
@@ -72,6 +92,7 @@ def worstAveragesByMunicipality(data):
 
 
 def worstAveragesByTypeInstitution(data):
+    data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
         averages_by_type = defaultdict(list)
@@ -103,6 +124,7 @@ def worstAveragesByTypeInstitution(data):
 
 
 def worstAveragesPerComponentByMunicipality(data, start, title_component, limit):
+    data = deleteDuplicateRecords(data)
     try:
         records = data.get("data", [])
         dictionary = defaultdict(list)
@@ -142,6 +164,7 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component, limit)
 
 
 def calculateAverageBySanitaryConcept(data):
+    data = deleteDuplicateRecords(data)
     registros = data["data"]
     concepts = [registro["CONCEPTO"] for registro in registros]
     grouped_concepts = groupSimilarConcepts(concepts)
@@ -157,6 +180,7 @@ def calculateAverageBySanitaryConcept(data):
 
 
 def obtener_registros_por_municipio(data, municipio):
+    data = deleteDuplicateRecords(data)
     try:
         # Filtrar los registros por el municipio especificado
         registros_municipio = [
@@ -173,6 +197,7 @@ def obtener_registros_por_municipio(data, municipio):
 
 
 def obtener_razon_cumplimiento_formato_lista(data, municipio):
+    data = deleteDuplicateRecords(data)
     try:
         # Filtrar los registros por el municipio especificado
         registros_municipio = [
@@ -195,3 +220,4 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio):
 
 def areAllZero(array):
     return None if all(value == 0 for _, value in array) else False
+
