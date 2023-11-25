@@ -45,12 +45,11 @@ class DataInstitution(APIView):
         municipio = request.data.get('municipio', None)
 
         # Crea una respuesta JSON
-        print(obtener_razon_cumplimiento_formato_lista(datas, municipio))
         response = JsonResponse(
             {
                 "status": 200,
                 "data": obtener_registros_por_municipio(datas, municipio),
-                "reports": obtener_razon_cumplimiento_formato_lista(datas, municipio),
+                "reports": obtener_razon_cumplimiento_formato_lista(datas, municipio, LOCATIVAS),
             }
         )
 

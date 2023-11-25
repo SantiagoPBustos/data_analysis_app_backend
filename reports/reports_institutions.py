@@ -227,7 +227,7 @@ def obtener_registros_por_municipio(data, municipio):
         return str(error)
 
 
-def obtener_razon_cumplimiento_formato_lista(data, municipio):
+def obtener_razon_cumplimiento_formato_lista(data, municipio, title_component):
     data = deleteDuplicateRecords(data)
     try:
         # Filtrar los registros por el municipio especificado
@@ -237,7 +237,7 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio):
 
             # Obtener la "RAZÓN SOCIAL" y el "% DE CUMPLIMIENTO" como una lista de listas
             datos_razon_cumplimiento = [
-                [f"{registro['RAZÓN SOCIAL']} - {registro['SEDE']}", float(registro["% DE CUMPLIMIENTO"])] for registro in registros_municipio]
+                [f"{registro['RAZÓN SOCIAL']} - {registro['SEDE']}", float(registro[title_component])] for registro in registros_municipio]
         except ValueError:
             print(ValueError)
         # Ordenar la lista por % DE CUMPLIMIENTO de menor a mayor
