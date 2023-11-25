@@ -155,7 +155,7 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component, limit)
                 code = record.get("CÓDIGO SECRETARIA DE SALUD")
                 total_value = totalValue(title_component, code)
 
-                record[title_component] = round((sum_values/total_value)*100)
+                record[title_component] = round((sum_values*100)/total_value)
                 municipality = record.get("MUNICIPIO")
                 compliance = record.get(title_component)
                 dictionary[municipality].append(compliance)
