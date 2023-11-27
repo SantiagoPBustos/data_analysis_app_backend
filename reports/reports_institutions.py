@@ -219,7 +219,9 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
 
                 sum_values = 0
                 for key, value in record.items():
-                    if key.startswith(title[2]) and (key != title[0]):
+                    if key.startswith(title[2]) and title[2] == "% DE CUMPLIMIENTO":
+                        sum_values = float(value)
+                    elif key.startswith(title[2]) and (key != title[0]):
                         sum_values += float(value)
 
                 cumplimiento = (sum_values/title[1])*100
