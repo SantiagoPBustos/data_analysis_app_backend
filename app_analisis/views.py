@@ -43,13 +43,14 @@ class DataInstitution(APIView):
         # Accede al JSON recibido en la solicitud POST
         datas = request.data.get('data', None)
         municipio = request.data.get('municipio', None)
+        componente = request.data.get('component', None)
 
         # Crea una respuesta JSON
         response = JsonResponse(
             {
                 "status": 200,
                 "data": obtener_registros_por_municipio(datas, municipio),
-                "reports": obtener_razon_cumplimiento_formato_lista(datas, municipio, LOCATIVAS),
+                "reports": obtener_razon_cumplimiento_formato_lista(datas, municipio, componente),
             }
         )
 

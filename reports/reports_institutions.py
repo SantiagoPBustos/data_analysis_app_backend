@@ -1,5 +1,6 @@
 from collections import defaultdict
-from utils.utilities import groupSimilarConcepts, totalValue
+from utils.utilities import groupSimilarConcepts, totalValue, titleComponent, areAllZero
+
 
 def deleteDuplicateRecords(data):
     records = data["data"]
@@ -198,6 +199,7 @@ def calculateAverageBySanitaryConcept(data):
     except Exception as error:
         return str(error)
 
+
 def obtener_registros_por_municipio(data, municipio):
     data = deleteDuplicateRecords(data)
     try:
@@ -220,26 +222,37 @@ def obtener_registros_por_municipio(data, municipio):
         for registro in registros_ordenados:
             del registro["% DE CUMPLIMIENTO"]
 
-        result = registros_ordenados[:10]
-        return result
+        return registros_ordenados
 
     except Exception as error:
         return str(error)
 
-
-def obtener_razon_cumplimiento_formato_lista(data, municipio, title_component):
-    data = deleteDuplicateRecords(data)
+def obtener_razon_cumplimiento_formato_lista(data, municipio, componente):
+    data = deleteDuplicateRecords(data)                
+    datos_razon_cumplimiento = []
     try:
         # Filtrar los registros por el municipio especificado
         registros_municipio = [
             registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
         try:
-
             # Obtener la "RAZÓN SOCIAL" y el "% DE CUMPLIMIENTO" como una lista de listas
-            datos_razon_cumplimiento = [
-                [f"{registro['RAZÓN SOCIAL']} - {registro['SEDE']}", float(registro[title_component])] for registro in registros_municipio]
+            for registro in registros_municipio:
+                code = registro.get("CÓDIGO SECRETARIA DE SALUD")
+                title = titleComponent(componente, code)
+                sum_values = 0
+                for key, value in registro.items():
+                    if key.startswith(title[2]) and (key != title[0]):
+                        sum_values += float(value)
+                print(sum_values)
+                cumplimiento = (sum_values/title[1])*100
+
+                datos_razon_cumplimiento.append([
+                    f"{registro['RAZÓN SOCIAL']} - {registro['SEDE']}", cumplimiento])
+            
+
         except ValueError:
             print(ValueError)
+        print(datos_razon_cumplimiento)
         # Ordenar la lista por % DE CUMPLIMIENTO de menor a mayor
         datos_ordenados = sorted(datos_razon_cumplimiento, key=lambda x: x[1])
         result = datos_ordenados[:50]
@@ -247,7 +260,3 @@ def obtener_razon_cumplimiento_formato_lista(data, municipio, title_component):
 
     except Exception as error:
         return str(error)
-
-
-def areAllZero(array):
-    return None if all(value == 0 for _, value in array) else False
