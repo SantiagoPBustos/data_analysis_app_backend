@@ -4,7 +4,6 @@ from utils.Constants import GENERAL, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAM
 # Establece un umbral de similitud para agrupar valores
 SIMILAR_AVERAGE = 60
 
-
 def groupSimilarConcepts(concepts):
     grouped_concepts = {}
 
