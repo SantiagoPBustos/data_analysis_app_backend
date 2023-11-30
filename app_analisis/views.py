@@ -23,11 +23,11 @@ class Data(APIView):
                 "total_CER": countTotalRural(data),
                 "worst_municipalities": worstAveragesByMunicipality(data),
                 "type_institutions": worstAveragesByTypeInstitution(data),
-                "location_conditions": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS, 20),
-                "conditions_laboratories": worstAveragesPerComponentByMunicipality(data, "3.", LABORATORIOS, 20),
-                "sanitary_conditions": worstAveragesPerComponentByMunicipality(data, "4.0", SANITARIAS, 20),
-                "conditions_sanitation": worstAveragesPerComponentByMunicipality(data, "4.1", SANEAMIENTO, 20),
-                "risk_management": worstAveragesPerComponentByMunicipality(data, "5.", GESTION_RIESGO, 35),
+                "location_conditions": worstAveragesPerComponentByMunicipality(data, "2.", LOCATIVAS),
+                "conditions_laboratories": worstAveragesPerComponentByMunicipality(data, "3.", LABORATORIOS),
+                "sanitary_conditions": worstAveragesPerComponentByMunicipality(data, "4.0", SANITARIAS),
+                "conditions_sanitation": worstAveragesPerComponentByMunicipality(data, "4.1", SANEAMIENTO),
+                "risk_management": worstAveragesPerComponentByMunicipality(data, "5.", GESTION_RIESGO),
                 "type_concept": calculateAverageBySanitaryConcept(data)
             }
         )

@@ -136,7 +136,7 @@ def worstAveragesByTypeInstitution(data):
 # Calcula promedio de los peores porcentajes de cumplimiento agrupados por componente segun municipio
 
 
-def worstAveragesPerComponentByMunicipality(data, start, title_component, limit):
+def worstAveragesPerComponentByMunicipality(data, start, title_component):
     data = deleteDuplicateRecords(data)
     try:
         records = data.get("data", [])
@@ -222,8 +222,8 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
         except ValueError:
             print(ValueError)
 
-        sorted_data = sorted(result, key=lambda x: x[1])
-        return sorted_data
+        data = sorted(result, key=lambda x: x[1])
+        return data
 
     except Exception as error:
         return str(error)
