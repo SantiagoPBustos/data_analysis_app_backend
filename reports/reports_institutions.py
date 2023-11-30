@@ -96,8 +96,7 @@ def worstAveragesByMunicipality(data):
             result.append([municipality, average])
 
         sorted_result = sorted(result, key=lambda x: x[1])
-        limited_result = sorted_result[:20]
-        return limited_result
+        return sorted_result
 
     except Exception as e:
         return str(e)
@@ -164,8 +163,7 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component, limit)
             result.append([municipality, average])
 
         sorted_result = sorted(result, key=lambda x: x[1])
-        result = sorted_result[:limit]
-        aux = areAllZero(result)
+        aux = areAllZero(sorted_result)
         if aux == False:
             return result
         elif aux == None:
@@ -224,9 +222,8 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
         except ValueError:
             print(ValueError)
 
-        datos_ordenados = sorted(result, key=lambda x: x[1])
-        data = datos_ordenados[:50]
-        return data
+        sorted_data = sorted(result, key=lambda x: x[1])
+        return sorted_data
 
     except Exception as error:
         return str(error)
