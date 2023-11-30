@@ -216,7 +216,7 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
                     elif key.startswith(title[2]) and (key != title[0]):
                         sum_values += float(value)
 
-                cumplimiento = (sum_values/title[1])*100
+                cumplimiento = round((sum_values/title[1])*100)
 
                 result.append([
                     f"{record['RAZÓN SOCIAL']} - {record['SEDE']}", cumplimiento])
@@ -230,7 +230,6 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
 
     except Exception as error:
         return str(error)
-
 
 def obtener_registros_por_municipio(data, municipio):
     data = deleteDuplicateRecords(data)
