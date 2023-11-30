@@ -41,20 +41,12 @@ def countTotalRural(data):
     return countRural
 
 # Informe general del número total de instituciones cargadas
-
-
-def countTotalInstitutions(data):
+def countTotalInstitutions(data):    
     data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
-        uniqueID = set()
-
-        for element in elements:
-            id = element.get("ID")
-            if id is not None:
-                uniqueID.add(id)
-
-        return len(uniqueID)
+        totalElements = len(elements)
+        return totalElements
 
     except Exception as e:
         return str(e)
