@@ -165,7 +165,7 @@ def worstAveragesPerComponentByMunicipality(data, start, title_component):
         sorted_result = sorted(result, key=lambda x: x[1])
         aux = areAllZero(sorted_result)
         if aux == False:
-            return result
+            return sorted_result
         elif aux == None:
             return None
 
