@@ -237,6 +237,5 @@ def obtener_registros_por_municipio(data, municipio):
         registros_municipio = [
             registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
         return registros_municipio
-
     except Exception as error:
         return str(error)
