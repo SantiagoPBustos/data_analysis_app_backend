@@ -41,7 +41,9 @@ def countTotalRural(data):
     return countRural
 
 # Informe general del número total de instituciones cargadas
-def countTotalInstitutions(data):    
+
+
+def countTotalInstitutions(data):
     data = deleteDuplicateRecords(data)
     try:
         elements = data.get("data", [])
@@ -228,29 +230,13 @@ def institutionsForMunicipalityPerComponent(data, municipality, component):
     except Exception as error:
         return str(error)
 
+
 def obtener_registros_por_municipio(data, municipio):
     data = deleteDuplicateRecords(data)
     try:
-        # Filtrar los registros por el municipio especificado
         registros_municipio = [
             registro for registro in data["data"] if registro["MUNICIPIO"] == municipio]
-
-        # Convertir "% DE CUMPLIMIENTO" a números antes de ordenar
-        registros_municipio = [
-            {"% DE CUMPLIMIENTO": int(
-                registro["% DE CUMPLIMIENTO"]), **registro}
-            for registro in registros_municipio
-        ]
-
-        # Ordenar los registros por % DE CUMPLIMIENTO de menor a mayor
-        registros_ordenados = sorted(
-            registros_municipio, key=lambda x: x["% DE CUMPLIMIENTO"])
-
-        # Eliminar la columna temporal "% DE CUMPLIMIENTO" creada para la comparación
-        for registro in registros_ordenados:
-            del registro["% DE CUMPLIMIENTO"]
-
-        return registros_ordenados
+        return registros_municipio
 
     except Exception as error:
         return str(error)

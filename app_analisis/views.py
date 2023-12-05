@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import JsonResponse
 from reports.reports_institutions import countTotalRural, countTotalInstitutions, countInstitutionsByTypePlace, worstAveragesByMunicipality, worstAveragesByTypeInstitution, worstAveragesPerComponentByMunicipality, calculateAverageBySanitaryConcept, institutionsForMunicipalityPerComponent, obtener_registros_por_municipio
-from utils.Constants import IE, IEES, HI, CDI, CER, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAMIENTO, GESTION_RIESGO
+from utils.Constants import IE, IEES, HI, CDI, LOCATIVAS, LABORATORIOS, SANITARIAS, SANEAMIENTO, GESTION_RIESGO
 
 from rest_framework.views import APIView
 
